@@ -89,21 +89,14 @@ def run_etl():
     try:
         conn = connect_db()
         customers, orders, tickets, reviews = load_data(conn)
-        
         generate_data_quality_report(customers, orders, tickets, reviews)
-
         customers_clean = clean_customers(customers)
-        
         clv = calculate_clv(orders)
         customers_clean = customers_clean.merge(clv, on='customer_id', how='left')
         customers_clean['lifetime_value'] = customers_clean['lifetime_value'].fillna(0)
-
         rfm = rfm_analysis(orders)
-
         customers_clean = assign_health_score(customers_clean, tickets)
-
         save_to_db(conn, customers_clean, rfm)
-
         conn.close()
 
     except Exception as e:
