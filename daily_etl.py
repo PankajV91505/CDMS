@@ -102,16 +102,6 @@ def run_etl():
                 print("Orders data missing required columns - skipping RFM calculation")
                 rfm = pd.DataFrame()
 
-            # Step 7: Comprehensive Health Score with fallbacks
-            support_stats = pd.DataFrame()
-            if not support_tickets.empty and all(col in support_tickets.columns for col in ['customer_id', 'ticket_id', 'resolution_hours']):
-                support_stats = support_tickets.groupby('customer_id').agg(
-                    ticket_count=('ticket_id', 'count'),
-                    avg_resolution=('resolution_hours', 'mean')
-                ).reset_index()
-            else:
-                print("Support tickets data missing or incomplete")
-                support_stats = pd.DataFrame(columns=['customer_id', 'ticket_count', 'avg_resolution'])
 
             if not customers.empty:
                 customers = (
