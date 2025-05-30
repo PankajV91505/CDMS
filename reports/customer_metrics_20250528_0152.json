@@ -1,0 +1,15 @@
+{
+  "metadata": {
+    "generated_at": "2025-05-28T01:52:25.827452",
+    "metrics_calculated": [
+      "CLV",
+      "RFM",
+      "Health_Score"
+    ],
+    "record_count": 0,
+    "warnings": [
+      "Missing last_activity_date - used registration_date"
+    ]
+  },
+  "data": []
+}
